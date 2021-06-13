@@ -1,0 +1,22 @@
+body {
+    background-color: black;
+    color: antiquewhite;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h1 {
+    font-size: large;
+    text-align: center;
+    
+}
+
+#fields {
+    text-align: center;
+}
+
+button {
+    width: 10em;
+    height: 3em;
+
+}
+
