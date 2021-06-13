@@ -4,15 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
     <title>uOMe (beta)</title>
 </head>
 <body>
     <h1>uOMe</h1>
     
-    <section>
-        <input type="text" id="debtors" placeholder="Enter debtors name" />
-        <input type="number" id="total" placeholder="Debt owed" /><button id="btnName">Add</button>
+    <section id="fields">
+        <p><label>Name: <input type="text" class="field" id="debtors" /></label> </p>
+        <p><label>Amount: <input type="number" class="field" id="total" /></label> </p>
+        <button id="btnName">Add</button>
     </section>
+
+    <hr>
 
     <section id="list"></section>
 
