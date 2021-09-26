@@ -50,6 +50,7 @@ function newSuarez() {
     const div = document.createElement('div');
     const btn = document.createElement('button');
     btn.innerText = 'del';
+    
     let debtor = {
         name: `${debtors.value}`,
         total: `${total.value}`
@@ -65,7 +66,7 @@ function newSuarez() {
 };
 
 // validation for empty fields
-function bothFields() {
+function checkFields() {
     if(debtors.value === '' || total.value === '') {
         alert('Enter both Values');
         clearInputs();
@@ -78,7 +79,7 @@ function bothFields() {
 // onclick to submit inputs
 btnName.addEventListener('click', function(e) {
     e.preventDefault();
-    bothFields();
+    checkFields();
 });
 
 
