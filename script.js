@@ -1,5 +1,5 @@
-const debtors = document.querySelector("#debtors");
-const total = document.querySelector("#total");
+const firstName = document.querySelector("#firstName");
+const lastName = document.querySelector("#lastName");
 const btnName = document.querySelector("#btnName");
 const list = document.querySelector("#list");
 
@@ -11,18 +11,19 @@ function fetchInfo() {
     let fetched = Object.assign({}, localStorage);
     for(info in fetched){
         let data = JSON.parse(fetched[info]);
-        
-        if(data.name === '' || data.value === ''){
-            data.remove();
-        }; 
-        
+
         const div = document.createElement('div');
-        const btn = document.createElement('button');
-        btn.innerText = 'del';
-        btn.setAttribute('id', `${data.name}`)
-        div.append(`${data.name}  ${data.total}`);
-        div.append(btn);
+        const addBtn = document.createElement('button');
+        const delBtn = document.createElement('button');
+        addBtn.innerText = '+';
+        delBtn.innerText = 'x';
+        addBtn.setAttribute('id', data.id);
+        delBtn.setAttribute('id', data.id);
+        div.append(`${data.firstName} ${data.lastName}`);
+        div.append(addBtn);
+        div.append(delBtn);
         list.append(div);
+
     }
 };
 
@@ -33,42 +34,49 @@ function removeInfo(id) {
     for(info in fetched){
         let data = JSON.parse(fetched[info]);
         
-        if(data.name === id){
-            localStorage.removeItem(id);
+        if(data.id === parseInt(id)){
+            localStorage.removeItem(data.id);
         };
     }
 };
 
 // resets input fields to blank after submitted
 function clearInputs() {
-    debtors.value = '';
-    total.value = '';
+    firstName.value = '';
+    lastName.value = '';
 };
 
 // creates new items, appends to container, saves to local storage
 function newSuarez() {
-    const div = document.createElement('div');
-    const btn = document.createElement('button');
-    btn.innerText = 'del';
-    
     let debtor = {
-        name: `${debtors.value}`,
-        total: `${total.value}`
+        firstName: `${firstName.value}`,
+        lastName: `${lastName.value}`,
+        id: Date.now()
     };
-    btn.setAttribute('id', `${debtor.name}`);
-    div.append(`${debtor.name}  ${debtor.total}`);
-    div.append(btn);
-    list.append(div);
+
+    const div = document.createElement('div');
+    const addBtn = document.createElement('button');
+    const delBtn = document.createElement('button');
+    addBtn.innerText = '+';
+    delBtn.innerText = 'x';
+      
+    addBtn.setAttribute('id', `${debtor.id}`);
+    delBtn.setAttribute('id', `${debtor.id}`);
+    div.append(`${debtor.firstName}  ${debtor.lastName}`);
+    div.append(addBtn);
+    div.append(delBtn);
+    list.append(div); 
+
     clearInputs();
 
     let debtorString = JSON.stringify(debtor);
-    localStorage.setItem(`${debtor.name}`, debtorString); 
+    localStorage.setItem(debtor.id, debtorString);
 };
 
 // validation for empty fields
 function checkFields() {
-    if(debtors.value === '' || total.value === '') {
-        alert('Enter both Values');
+    if(firstName.value === '' || lastName.value === '') {
+        alert('Enter All Values');
         clearInputs();
     } else {
         newSuarez();
@@ -90,6 +98,5 @@ list.addEventListener('click', function(e) {
     if(element.matches('button')) {
         removeInfo(element.id);
         element.parentElement.remove();
-        
     };
 });
