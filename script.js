@@ -47,15 +47,15 @@ function clearInputs() {
     total.value = '';
 };
 
+
 // creates new items, appends to container, saves to local storage
 function newSuarez() {
-    let debtor = {
+    var debtor = {
         firstName: firstName.value,
         lastName: lastName.value,
         total: total.value,
         id: Date.now()
     };
-    console.log(total)
 
     const div = document.createElement('div');
     const addBtn = document.createElement('button');
@@ -69,12 +69,13 @@ function newSuarez() {
     div.append(addBtn);
     div.append(delBtn);
     list.append(div); 
-
+    
     clearInputs();
 
     let debtorString = JSON.stringify(debtor);
     localStorage.setItem(debtor.id, debtorString);
 };
+
 
 // validation for empty fields
 function checkFields() {
@@ -94,12 +95,18 @@ btnName.addEventListener('click', function(e) {
 });
 
 
-// onclick to delete items (will need rework if adding edit btn)
+// onclick to delete items (reworking to add edit btn)
 list.addEventListener('click', function(e) {
     e.preventDefault();
     const element = e.target;
-    if(element.matches('button')) {
+
+    if(element.innerText === 'x') {
         removeInfo(element.id);
         element.parentElement.remove();
-    };
+    }
+    // if(element.innerText === '+') {
+    //     var addAmount = prompt("Enter amount to ADD to existing total");
+    //     return addAmount;
+    //     console.log(addAmount)
+    // }
 });
