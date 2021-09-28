@@ -3,7 +3,6 @@ const lastName = document.querySelector("#lastName");
 const total = document.querySelector("#total");
 const btnName = document.querySelector("#btnName");
 const list = document.querySelector("#list");
-const totalList = document.querySelector("#totallist");
 
 // fetches any existing data from local storage, displays in list
 window.onload = fetchInfo()
@@ -46,6 +45,7 @@ function addDebtor() {
 function dynamicGenerator(data){
     const div = document.createElement('div');
     const div2 = document.createElement('div');
+    const div3 = document.createElement('div');
     const addBtn = document.createElement('button');
     const delBtn = document.createElement('button');
     
@@ -57,9 +57,8 @@ function dynamicGenerator(data){
     
     div.append(`${data.firstName}  ${data.lastName} - $`);
     div2.append(`${data.total}`);
-    div2.append(addBtn);
-    div2.append(delBtn);
-    list.append(div, div2);
+    div3.append(div, div2, addBtn, delBtn);
+    list.append(div3);
 };
 
 
@@ -107,24 +106,27 @@ list.addEventListener('click', function(e) {
     e.preventDefault();
     const element = e.target;
 
+    // if delete button is clicked
     if(element.innerText === 'x') {
         removeInfo(element.id);
         element.parentElement.remove();
     }
+
+    // if add button is clicked
     if(element.innerText === '+') {
-        let id = element.id;
-        let element2 = element.parentElement;
-        let existingTotal = element.parentElement.innerText;
-        let addAmount = prompt("Enter amount to ADD to existing total");
-        let newTotal = parseInt(addAmount) + parseInt(existingTotal);
-        updatedTotal(element2, newTotal);
-        console.log(element.id)
-        return
+        updatedTotal(element);
     }
 });
 
-function updatedTotal(element2, newAmount) {
-    console.log(element2);
-    console.log(newAmount);
-    element2.innerText = newAmount;
+
+
+function updatedTotal(data) {
+    let element2 = data.parentElement;
+    console.log(element2)
+    let existingTotal = parseInt(data.parentElement.getElementsByTagName('div')[1].innerText);
+    console.log(existingTotal)
+    let addAmount = parseInt(prompt("Enter amount to ADD to existing total"));
+    console.log(addAmount)
+    let newTotal = addAmount += existingTotal;
+    console.log(newTotal)
 }
