@@ -15,8 +15,12 @@ h1 {
 }
 
 button {
-    width: 10em;
+    width: 7em;
     height: 3em;
+    margin: 5px;
 
 }
 
+div {
+    display: inline-block;
+}
