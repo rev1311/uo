@@ -65,7 +65,6 @@ function dynamicGenerator(data){
 // saves data to local storage
 function dataStorage(debtor){
     let debtorString = JSON.stringify(debtor);
-    console.log(debtor)
     localStorage.setItem(debtor.id, debtorString);
 };
 
@@ -101,7 +100,7 @@ btnName.addEventListener('click', function(e) {
 });
 
 
-// onclick to delete items (reworking to add edit btn)
+// onclick controller for dynamic buttons
 list.addEventListener('click', function(e) {
     e.preventDefault();
     const element = e.target;
@@ -119,14 +118,10 @@ list.addEventListener('click', function(e) {
 });
 
 
-
+// on add button click, prompts for additional amount, adds to existing total (console only atm)
 function updatedTotal(data) {
-    let element2 = data.parentElement;
-    console.log(element2)
     let existingTotal = parseInt(data.parentElement.getElementsByTagName('div')[1].innerText);
-    console.log(existingTotal)
     let addAmount = parseInt(prompt("Enter amount to ADD to existing total"));
-    console.log(addAmount)
     let newTotal = addAmount += existingTotal;
     console.log(newTotal)
 }
