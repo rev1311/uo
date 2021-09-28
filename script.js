@@ -5,7 +5,7 @@ const btnName = document.querySelector("#btnName");
 const list = document.querySelector("#list");
 const totalList = document.querySelector("#totallist");
 
-// fetches any existing data from local storage, validates and displays in list
+// fetches any existing data from local storage, displays in list
 window.onload = fetchInfo()
 
 function fetchInfo() {
@@ -13,21 +13,61 @@ function fetchInfo() {
     for(info in fetched){
         let data = JSON.parse(fetched[info]);
 
-        const div = document.createElement('div');
-        const div2 = document.createElement('div');
-        const addBtn = document.createElement('button');
-        const delBtn = document.createElement('button');
-        addBtn.innerText = '+';
-        delBtn.innerText = 'x';
-        addBtn.setAttribute('id', data.id);
-        delBtn.setAttribute('id', data.id);
-        div.append(`${data.firstName} ${data.lastName} - $`);
-        div2.append(`${data.total}`);
-        div2.append(addBtn);
-        div2.append(delBtn);
-        list.append(div, div2);
-
+        dynamicGenerator(data);
     }
+};
+
+
+
+// resets input fields to blank after submitted
+function clearInputs() {
+    firstName.value = '';
+    lastName.value = '';
+    total.value = '';
+};
+
+
+// creates new items, appends to container, saves to local storage
+function addDebtor() {
+    const data = {
+        firstName: firstName.value,
+        lastName: lastName.value,
+        total: total.value,
+        id: Date.now()
+    };
+    
+    dynamicGenerator(data);
+    dataStorage(data);
+    clearInputs();
+};
+
+
+// generates dynamic html
+function dynamicGenerator(data){
+    const div = document.createElement('div');
+    const div2 = document.createElement('div');
+    const addBtn = document.createElement('button');
+    const delBtn = document.createElement('button');
+    
+    addBtn.innerText = '+';
+    delBtn.innerText = 'x';
+    
+    addBtn.setAttribute('id', `${data.id}`);
+    delBtn.setAttribute('id', `${data.id}`);
+    
+    div.append(`${data.firstName}  ${data.lastName} - $`);
+    div2.append(`${data.total}`);
+    div2.append(addBtn);
+    div2.append(delBtn);
+    list.append(div, div2);
+};
+
+
+// saves data to local storage
+function dataStorage(debtor){
+    let debtorString = JSON.stringify(debtor);
+    console.log(debtor)
+    localStorage.setItem(debtor.id, debtorString);
 };
 
 
@@ -43,46 +83,6 @@ function removeInfo(id) {
     }
 };
 
-// resets input fields to blank after submitted
-function clearInputs() {
-    firstName.value = '';
-    lastName.value = '';
-    total.value = '';
-};
-
-
-// creates new items, appends to container, saves to local storage
-function newSuarez() {
-    const debtor = {
-        firstName: firstName.value,
-        lastName: lastName.value,
-        total: total.value,
-        id: Date.now()
-    };
-    console.log(debtor)
-
-    const div = document.createElement('div');
-    const div2 = document.createElement('div');
-    const addBtn = document.createElement('button');
-    const delBtn = document.createElement('button');
-
-    addBtn.innerText = '+';
-    delBtn.innerText = 'x';
-      
-    addBtn.setAttribute('id', `${debtor.id}`);
-    delBtn.setAttribute('id', `${debtor.id}`);
-    div.append(`${debtor.firstName}  ${debtor.lastName} - $`);
-    div2.append(`${debtor.total}`);
-    div2.append(addBtn);
-    div2.append(delBtn);
-    list.append(div, div2); 
-
-    clearInputs();
-
-    let debtorString = JSON.stringify(debtor);
-    localStorage.setItem(debtor.id, debtorString);
-};
-
 
 // validation for empty fields
 function checkFields() {
@@ -90,7 +90,7 @@ function checkFields() {
         alert('Enter All Values');
         clearInputs();
     } else {
-        newSuarez();
+        addDebtor();
     }
 };
 
@@ -112,10 +112,19 @@ list.addEventListener('click', function(e) {
         element.parentElement.remove();
     }
     if(element.innerText === '+') {
-        let existingTotal = parseInt(element.parentElement.innerText);
-        let addAmount = parseInt(prompt("Enter amount to ADD to existing total"));
-        let newTotal = addAmount += existingTotal;
-        console.log(newTotal)
-        return existingTotal = newTotal
+        let id = element.id;
+        let element2 = element.parentElement;
+        let existingTotal = element.parentElement.innerText;
+        let addAmount = prompt("Enter amount to ADD to existing total");
+        let newTotal = parseInt(addAmount) + parseInt(existingTotal);
+        updatedTotal(element2, newTotal);
+        console.log(element.id)
+        return
     }
 });
+
+function updatedTotal(element2, newAmount) {
+    console.log(element2);
+    console.log(newAmount);
+    element2.innerText = newAmount;
+}
