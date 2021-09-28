@@ -3,6 +3,7 @@ const lastName = document.querySelector("#lastName");
 const total = document.querySelector("#total");
 const btnName = document.querySelector("#btnName");
 const list = document.querySelector("#list");
+const totalList = document.querySelector("#totallist");
 
 // fetches any existing data from local storage, validates and displays in list
 window.onload = fetchInfo()
@@ -13,16 +14,18 @@ function fetchInfo() {
         let data = JSON.parse(fetched[info]);
 
         const div = document.createElement('div');
+        const div2 = document.createElement('div');
         const addBtn = document.createElement('button');
         const delBtn = document.createElement('button');
         addBtn.innerText = '+';
         delBtn.innerText = 'x';
         addBtn.setAttribute('id', data.id);
         delBtn.setAttribute('id', data.id);
-        div.append(`${data.firstName} ${data.lastName} $${data.total}`);
-        div.append(addBtn);
-        div.append(delBtn);
-        list.append(div);
+        div.append(`${data.firstName} ${data.lastName} - $`);
+        div2.append(`${data.total}`);
+        div2.append(addBtn);
+        div2.append(delBtn);
+        list.append(div, div2);
 
     }
 };
@@ -50,26 +53,30 @@ function clearInputs() {
 
 // creates new items, appends to container, saves to local storage
 function newSuarez() {
-    var debtor = {
+    const debtor = {
         firstName: firstName.value,
         lastName: lastName.value,
         total: total.value,
         id: Date.now()
     };
+    console.log(debtor)
 
     const div = document.createElement('div');
+    const div2 = document.createElement('div');
     const addBtn = document.createElement('button');
     const delBtn = document.createElement('button');
+
     addBtn.innerText = '+';
     delBtn.innerText = 'x';
       
     addBtn.setAttribute('id', `${debtor.id}`);
     delBtn.setAttribute('id', `${debtor.id}`);
-    div.append(`${debtor.firstName}  ${debtor.lastName} $${debtor.total}`);
-    div.append(addBtn);
-    div.append(delBtn);
-    list.append(div); 
-    
+    div.append(`${debtor.firstName}  ${debtor.lastName} - $`);
+    div2.append(`${debtor.total}`);
+    div2.append(addBtn);
+    div2.append(delBtn);
+    list.append(div, div2); 
+
     clearInputs();
 
     let debtorString = JSON.stringify(debtor);
@@ -104,9 +111,11 @@ list.addEventListener('click', function(e) {
         removeInfo(element.id);
         element.parentElement.remove();
     }
-    // if(element.innerText === '+') {
-    //     var addAmount = prompt("Enter amount to ADD to existing total");
-    //     return addAmount;
-    //     console.log(addAmount)
-    // }
+    if(element.innerText === '+') {
+        let existingTotal = parseInt(element.parentElement.innerText);
+        let addAmount = parseInt(prompt("Enter amount to ADD to existing total"));
+        let newTotal = addAmount += existingTotal;
+        console.log(newTotal)
+        return existingTotal = newTotal
+    }
 });
