@@ -46,17 +46,20 @@ function dynamicGenerator(data){
     const div2 = document.createElement('div');
     const div3 = document.createElement('div');
     const addBtn = document.createElement('button');
+    const subBtn = document.createElement('button');
     const delBtn = document.createElement('button');
     
     addBtn.innerText = '+';
+    subBtn.innerText = '-';
     delBtn.innerText = 'x';
     
     addBtn.setAttribute('id', data.id);
+    subBtn.setAttribute('id', data.id);
     delBtn.setAttribute('id', data.id);
     
     div.append(data.Name);
     div2.append(data.total);
-    div3.append(div, div2, addBtn, delBtn);
+    div3.append(div, div2, addBtn, subBtn, delBtn);
     list.append(div3);
 };
 
@@ -114,6 +117,11 @@ list.addEventListener('click', function(e) {
     if(element.innerText === '+') {
         addTotal(element, element.id);
     }
+
+    // if sub button is clicked
+    if(element.innerText === '-') {
+        subTotal(element, element.id);
+    }
 });
 
 
@@ -121,7 +129,17 @@ list.addEventListener('click', function(e) {
 function addTotal(data, dataId) {
     let dataLocale = data.parentElement.getElementsByTagName('div')[1];
     let addAmount = parseInt(prompt("Enter amount to ADD to existing total"));
-    let newTotal = addAmount += parseInt(dataLocale.innerText);
+    let newTotal = addAmount + parseInt(dataLocale.innerText);
+    let updatedTotal = dataLocale.innerText = newTotal;
+    updateAmounts(data, dataId, updatedTotal);
+};
+
+
+// on sub button click, prompts for subtraction amount, minus from existing total
+function subTotal(data, dataId) {
+    let dataLocale = data.parentElement.getElementsByTagName('div')[1];
+    let subAmount = parseInt(prompt("Enter amount to SUBTRACT from existing total"));
+    let newTotal = parseInt(dataLocale.innerText) - subAmount;
     let updatedTotal = dataLocale.innerText = newTotal;
     updateAmounts(data, dataId, updatedTotal);
 };
