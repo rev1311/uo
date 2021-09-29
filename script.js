@@ -9,11 +9,11 @@ window.onload = fetchInfo()
 
 function fetchInfo() {
     let fetched = Object.assign({}, localStorage);
-    for(info in fetched){
+    for(info in fetched) {
         let data = JSON.parse(fetched[info]);
 
         dynamicGenerator(data);
-    }
+    };
 };
 
 
@@ -74,13 +74,13 @@ function dataStorage(data){
 // removes data from local storage
 function removeInfo(id) {
     let fetched = Object.assign({}, localStorage);
-    for(info in fetched){
+    for(info in fetched) {
         let data = JSON.parse(fetched[info]);
         
-        if(data.id === parseInt(id)){
+        if(data.id == id) {
             localStorage.removeItem(data.id);
         };
-    }
+    };
 };
 
 
@@ -91,7 +91,7 @@ function checkFields() {
         clearInputs();
     } else {
         addDebtor();
-    }
+    };
 };
 
 
@@ -110,18 +110,19 @@ list.addEventListener('click', function(e) {
     // if delete button is clicked
     if(element.innerText === 'x') {
         removeInfo(element.id);
+        console.log(element.id)
         element.parentElement.remove();
-    }
+    };
 
     // if add button is clicked
     if(element.innerText === '+') {
         addTotal(element, element.id);
-    }
+    };
 
     // if sub button is clicked
     if(element.innerText === '-') {
         subTotal(element, element.id);
-    }
+    };
 });
 
 
