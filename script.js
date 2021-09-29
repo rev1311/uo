@@ -28,15 +28,14 @@ function clearInputs() {
 
 // creates new items, appends to container, saves to local storage
 function addDebtor() {
-    const data = {
-        firstName: firstName.value,
-        lastName: lastName.value,
+    const debtor = {
+        Name: `${firstName.value} ${lastName.value}: $`,
         total: total.value,
         id: Date.now()
     };
-    
-    dynamicGenerator(data);
-    dataStorage(data);
+    console.log(debtor)
+    dynamicGenerator(debtor);
+    dataStorage(debtor);
     clearInputs();
 };
 
@@ -52,20 +51,20 @@ function dynamicGenerator(data){
     addBtn.innerText = '+';
     delBtn.innerText = 'x';
     
-    addBtn.setAttribute('id', `${data.id}`);
-    delBtn.setAttribute('id', `${data.id}`);
+    addBtn.setAttribute('id', data.id);
+    delBtn.setAttribute('id', data.id);
     
-    div.append(`${data.firstName}  ${data.lastName} - $`);
-    div2.append(`${data.total}`);
+    div.append(data.Name);
+    div2.append(data.total);
     div3.append(div, div2, addBtn, delBtn);
     list.append(div3);
 };
 
 
 // saves data to local storage
-function dataStorage(debtor){
-    let debtorString = JSON.stringify(debtor);
-    localStorage.setItem(debtor.id, debtorString);
+function dataStorage(data){
+    let debtorString = JSON.stringify(data);
+    localStorage.setItem(data.id, debtorString);
 };
 
 
@@ -113,15 +112,26 @@ list.addEventListener('click', function(e) {
 
     // if add button is clicked
     if(element.innerText === '+') {
-        updatedTotal(element);
+        addTotal(element, element.id);
     }
 });
 
 
-// on add button click, prompts for additional amount, adds to existing total (console only atm)
-function updatedTotal(data) {
-    let existingTotal = parseInt(data.parentElement.getElementsByTagName('div')[1].innerText);
+// on add button click, prompts for additional amount, adds to existing total
+function addTotal(data, dataId) {
+    let dataLocale = data.parentElement.getElementsByTagName('div')[1];
     let addAmount = parseInt(prompt("Enter amount to ADD to existing total"));
-    let newTotal = addAmount += existingTotal;
-    console.log(newTotal)
-}
+    let newTotal = addAmount += parseInt(dataLocale.innerText);
+    let updatedTotal = dataLocale.innerText = newTotal;
+    updateAmounts(data, dataId, updatedTotal);
+};
+
+// updates existing object, saves to local storage (works with add or sub buttons)
+function updateAmounts(data, dataId, updatedTotal) {
+    let updatedDebtor = {
+        Name: data.parentElement.getElementsByTagName('div')[0].innerText,
+        total: updatedTotal,
+        id: dataId
+    };
+    dataStorage(updatedDebtor);
+};
