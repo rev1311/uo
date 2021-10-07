@@ -43,13 +43,13 @@ function addDebtor() {
 
 // generates dynamic html
 function dynamicGenerator(data){
-    const div = document.createElement('div');
+    const div1 = document.createElement('div');
     const div2 = document.createElement('div');
     const div3 = document.createElement('div');
     const addBtn = document.createElement('button');
     const subBtn = document.createElement('button');
     const delBtn = document.createElement('button');
-    const _br = document.createElement('br');
+    const _p = document.createElement('p');
     
     addBtn.innerText = '+';
     subBtn.innerText = '-';
@@ -63,12 +63,14 @@ function dynamicGenerator(data){
 
     delBtn.setAttribute('id', data.id);
     delBtn.setAttribute('class', 'dynBtn');
+    
+    _p.setAttribute('id', data.id);
 
     
-    div.append(data.Name);
+    div1.append(data.Name);
     div2.append(data.total);
-    div3.append(div, div2, addBtn, subBtn, delBtn);
-    list.append(div3, _br);
+    div3.append(div1, div2, addBtn, subBtn, delBtn);
+    list.append(div3, _p);
 };
 
 
