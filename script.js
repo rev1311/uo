@@ -1,8 +1,9 @@
 const firstName = document.querySelector("#firstName");
 const lastName = document.querySelector("#lastName");
 const total = document.querySelector("#total");
-const btnName = document.querySelector("#btnName");
+const btnName = document.querySelector("#btn_addNewUser");
 const list = document.querySelector("#list");
+
 
 // fetches any existing data from local storage, displays in list
 window.onload = fetchInfo()
@@ -48,19 +49,26 @@ function dynamicGenerator(data){
     const addBtn = document.createElement('button');
     const subBtn = document.createElement('button');
     const delBtn = document.createElement('button');
+    const _br = document.createElement('br');
     
     addBtn.innerText = '+';
     subBtn.innerText = '-';
     delBtn.innerText = 'x';
     
     addBtn.setAttribute('id', data.id);
+    addBtn.setAttribute('class', 'dynBtn');
+
     subBtn.setAttribute('id', data.id);
+    subBtn.setAttribute('class', 'dynBtn');
+
     delBtn.setAttribute('id', data.id);
+    delBtn.setAttribute('class', 'dynBtn');
+
     
     div.append(data.Name);
     div2.append(data.total);
     div3.append(div, div2, addBtn, subBtn, delBtn);
-    list.append(div3);
+    list.append(div3, _br);
 };
 
 
