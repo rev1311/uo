@@ -1,22 +1,98 @@
-body {
-    background-color: black;
-    color: antiquewhite;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
 }
 
-h1 {
+body {
+    background-color: black;
+    color: rgb(15, 240, 200);
+    font-family: 'Noto Sans', sans-serif;}
+
+h3 {
     font-size: large;
     text-align: center;
+    margin: 1em;
     
 }
 
-#fields {
+#input_fields {
+    text-align: center;
+    background-color: rgb(0, 0, 0);
+}
+
+label {
+    display: hidden;
+}
+
+.field {
+    color:rgb(15, 240, 200);
+    text-align: left;
+    margin: 0.5em;
+    background-color: rgb(0, 0, 0);
+    border-style: solid;
+    border-color: rgb(0, 0, 0) rgb(0, 0, 0) rgb(0, 255, 100);
+}
+
+.field:focus {
+    color:rgb(15, 240, 200);
+    text-align: left;
+    margin: 0.5em;
+    background-color: rgb(0, 0, 0);
+    outline-style: hidden;
+    border-style: solid;
+    border-color: rgb(0, 0, 0) rgb(0, 0, 0) rgb(0, 255, 0);
+}
+
+#list {
+    background-color: rgb(0, 0, 0);
     text-align: center;
 }
 
-button {
-    width: 10em;
-    height: 3em;
+#btn_addNewUser {
+    width: 7.5em;
+    height: 2em;
+    margin: 5px;
+    border-radius: 1em;
+    border-style: none;
+    background-color: rgb(0, 180, 100);
 
 }
 
+#btn_addNewUser:hover {
+    width: 7.5em;
+    height: 2em;
+    margin: 5px;
+    border-radius: 1em;
+    border-style: none;
+    background-color: rgb(0, 255, 0);
+    box-shadow: 0px 0px 10px 5px rgba(0, 255, 0, 0.5);
+}
+
+.dynBtn {
+    width: 2em;
+    height: 2em;
+    margin: 5px 0px 10px 10px;
+    border-radius: 1em;
+    color: rgb(0, 180, 100);
+    font-size: 1.5em;
+    background-color: rgb(0, 0, 0);
+    border-width: 0em;
+}
+
+.dynBtn:hover {
+    width: 2em;
+    height: 2em;
+    margin: 5px 0px 10px 10px;
+    border-radius: 1em;
+    color: rgb(0, 255, 0);
+    font-size: 1.5em;
+    background-color: rgb(0, 0, 0);
+    border-width: 0em;
+    box-shadow: 0px 0px 10px 5px rgba(0, 255, 0, 0.5);
+
+}
+
+div {
+    display: inline-block;
+}
